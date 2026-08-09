@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* Global form input styling - fixes gray/faded text in all inputs */
+input, textarea, select {
+  color: #1f2937; /* text-gray-800 */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af; /* text-gray-400 */
+}
