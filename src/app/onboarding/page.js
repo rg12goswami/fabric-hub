@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const categoryOptions = ["Apparel", "Home Textiles", "Upholstery", "Accessories"];
 const fabricOptions = ["Cotton", "Silk", "Linen", "Wool", "Synthetic"];
 
-export default function OnboardingPage() {
+function OnboardingForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get("role") || "buyer";
@@ -22,7 +22,6 @@ export default function OnboardingPage() {
   const [saving, setSaving] = useState(false);
 
   if (role !== "buyer") {
-    // Suppliers go straight to their dashboard; they fill business profile separately
     if (typeof window !== "undefined") router.push("/supplier-dashboard");
     return null;
   }
@@ -145,5 +144,13 @@ export default function OnboardingPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function OnboardingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>}>
+      <OnboardingForm />
+    </Suspense>
   );
 }
